@@ -16,6 +16,9 @@ const app = express();
 const httpServer = http.createServer(app);
 const PORT = process.env.PORT || 5001;
 
+// Trust X-Forwarded-* when behind nginx/reverse proxy (required for express-rate-limit to use client IP)
+app.set('trust proxy', 1);
+
 app.use(cors({
   origin: true,
   credentials: true,
