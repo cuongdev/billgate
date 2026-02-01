@@ -1,0 +1,131 @@
+services:
+  postgres:
+    image: postgres:13
+    container_name: temporal-postgres
+    environment:
+      - TZ=Asia/Ho_Chi_Minh
+      - POSTGRES_USER=temporal
+      - POSTGRES_PASSWORD=temporal
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U temporal"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  temporal:
+    image: temporalio/auto-setup:latest
+    container_name: temporal
+    ports:
+      - "7233:7233"
+    environment:
+      - TZ=Asia/Ho_Chi_Minh
+      - DB=postgres12
+      - DB_PORT=5432
+      - POSTGRES_USER=temporal
+      - POSTGRES_PWD=temporal
+      - POSTGRES_SEEDS=postgres
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  temporal-ui:
+    image: temporalio/ui:latest
+    container_name: temporal-ui
+    ports:
+      - "8080:8080"
+    environment:
+      - TZ=Asia/Ho_Chi_Minh
+      - TEMPORAL_ADDRESS=temporal:7233
+      - TEMPORAL_CORS_ORIGINS=http://localhost:3000
+    depends_on:
+      - temporal
+
+  vpbank-server:
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    container_name: vpbank-server
+    command: >
+      sh -c "
+        echo 'Waiting for Postgres...' &&
+        /bin/bash -c 'while ! nc -z postgres 5432; do sleep 1; done' &&
+        echo 'Postgres is up. Creating DB...' &&
+        npx sequelize-cli db:create || true &&
+        echo 'Running migrations...' &&
+        npx sequelize-cli db:migrate &&
+        echo 'Migrations complete. Starting server...' &&
+        npm run start
+      "
+    ports:
+      - "3000:3000"
+    environment:
+      - TZ=Asia/Ho_Chi_Minh
+      - PORT=3000
+      - DB_TYPE=postgres
+      - PG_HOST=postgres
+      - PG_PORT=5432
+      - PG_USER=temporal
+      - PG_PASSWORD=temporal
+      - PG_DATABASE=vpbank_dev
+      - TEMPORAL_ADDRESS=temporal:7233
+      - VPBANK_CONTEXT_PATH=https://neo.vpbank.com.vn
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - JWT_SECRET=${JWT_SECRET}
+      - JWT_ISSUER=${JWT_ISSUER:-vpbank-mini-app}
+      - JWT_AUDIENCE=${JWT_AUDIENCE:-vpbank-mini-app}
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/service-account.json
+      - INTERNAL_API_SECRET=${INTERNAL_API_SECRET:-insecure-default-secret}
+
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    depends_on:
+      temporal:
+        condition: service_started
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./server/service-account.json:/app/service-account.json
+
+  vpbank-worker:
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    container_name: vpbank-worker
+    command: npm run worker
+    environment:
+      - TZ=Asia/Ho_Chi_Minh
+      - DB_TYPE=postgres
+      - PG_HOST=postgres
+      - PG_PORT=5432
+      - PG_USER=temporal
+      - PG_PASSWORD=temporal
+      - PG_DATABASE=vpbank_dev
+      - TEMPORAL_ADDRESS=temporal:7233
+      - VPBANK_CONTEXT_PATH=https://neo.vpbank.com.vn
+
+      - API_INTERNAL_URL=http://vpbank-server:3000
+      - INTERNAL_API_SECRET=${INTERNAL_API_SECRET:-insecure-default-secret}
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/service-account.json
+    depends_on:
+      temporal:
+        condition: service_started
+      postgres:
+        condition: service_healthy
+      vpbank-server:
+        condition: service_healthy
+    volumes:
+      - ./server/service-account.json:/app/service-account.json
+    sysctls:
+      - net.ipv4.tcp_keepalive_time=60
+      - net.ipv4.tcp_keepalive_intvl=10
+      - net.ipv4.tcp_keepalive_probes=6
+
+volumes:
+  postgres_data:

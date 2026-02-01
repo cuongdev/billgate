@@ -1,0 +1,45 @@
+{
+	"name": "vpbank-client",
+	"private": true,
+	"version": "0.0.0",
+	"type": "module",
+	"author": "mr.cuongnt",
+	"license": "MIT",
+	"homepage": "https://billgate.xyz",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/cuongdev/billgate"
+	},
+	"keywords": ["billgate", "vpbank", "auto bank gateway"],
+	"bugs": {
+		"url": "https://github.com/cuongdev/billgate/issues"
+	},
+	"engines": {
+		"node": ">=18.0.0"
+	},
+	"scripts": {
+		"dev": "vite",
+		"build": "tsc && vite build",
+		"preview": "vite preview"
+	},
+	"dependencies": {
+		"firebase": "^10.0.0",
+		"idb": "^8.0.3",
+		"lucide-react": "^0.263.1",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
+		"react-router-dom": "^7.12.0",
+		"recharts": "^3.7.0",
+		"socket.io-client": "^4.8.3"
+	},
+	"devDependencies": {
+		"@types/react": "^18.2.15",
+		"@types/react-dom": "^18.2.7",
+		"@vitejs/plugin-react": "^4.0.3",
+		"autoprefixer": "^10.4.14",
+		"postcss": "^8.4.27",
+		"tailwindcss": "^3.3.3",
+		"typescript": "^5.0.2",
+		"vite": "^4.4.5"
+	}
+}

@@ -1,0 +1,27 @@
+{
+	"name": "billgate.xyz",
+	"version": "1.0.0",
+	"author": "mr.cuongnt",
+	"license": "MIT",
+	"homepage": "https://billgate.xyz",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/cuongdev/billgate"
+	},
+	"keywords": ["billgate", "vpbank", "auto bank gateway"],
+	"bugs": {
+		"url": "https://github.com/cuongdev/billgate/issues"
+	},
+	"engines": {
+		"node": ">=18.0.0"
+	},
+	"scripts": {
+		"install-all": "npm install --prefix server && npm install --prefix client",
+		"dev": "concurrently \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
+		"build": "npm run build --prefix client && tsc --project server",
+		"start": "npm start --prefix server"
+	},
+	"devDependencies": {
+		"concurrently": "^8.2.0"
+	}
+}

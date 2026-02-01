@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Hướng Dẫn Chia Sẻ Biến Động Số Dư VPBank - BillGate</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+		rel="stylesheet">
+	<style>
+		:root {
+			--vpbank-green: #00b14f;
+			--vpbank-green-light: #00d45a;
+			--vpbank-gradient: linear-gradient(135deg, #00b14f 0%, #00d45a 100%);
+			--gray-50: #fafafa;
+			--gray-100: #f5f5f5;
+			--gray-200: #e5e5e5;
+			--gray-600: #525252;
+			--gray-900: #171717;
+			--text-primary: #171717;
+			--text-secondary: #525252;
+		}
+
+		* {
+			box-sizing: border-box;
+			margin: 0;
+			padding: 0;
+		}
+
+		body {
+			font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+			background: linear-gradient(135deg, #fafafa 0%, #f0f9ff 100%);
+			color: var(--text-primary);
+			min-height: 100vh;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding: 40px 20px;
+			-webkit-font-smoothing: antialiased;
+			overflow-x: hidden;
+		}
+
+		.container {
+			max-width: 1400px;
+			width: 100%;
+			margin: 0 auto;
+		}
+
+		/* Header */
+		header {
+			text-align: center;
+			margin-bottom: 60px;
+			animation: fadeIn 0.8s ease-out;
+		}
+
+		h1 {
+			font-size: clamp(1.75rem, 4vw, 3rem);
+			font-weight: 800;
+			margin-bottom: 12px;
+			background: var(--vpbank-gradient);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			background-clip: text;
+			letter-spacing: -0.02em;
+		}
+
+		.subtitle {
+			color: var(--text-secondary);
+			font-size: clamp(0.9rem, 2vw, 1.125rem);
+			font-weight: 500;
+		}
+
+		/* Journey Container */
+		.journey-container {
+			display: grid;
+			grid-template-columns: 1fr;
+			gap: 40px;
+			align-items: center;
+		}
+
+		@media (min-width: 1024px) {
+			.journey-container {
+				grid-template-columns: 1fr 500px 1fr;
+				gap: 60px;
+			}
+		}
+
+		/* Left Side - Step Info */
+		.step-info {
+			display: flex;
+			flex-direction: column;
+			gap: 24px;
+			order: 2;
+		}
+
+		@media (min-width: 1024px) {
+			.step-info {
+				order: 1;
+				align-items: flex-end;
+				text-align: right;
+			}
+		}
+
+		.step-number {
+			font-size: 5rem;
+			font-weight: 900;
+			background: var(--vpbank-gradient);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			background-clip: text;
+			line-height: 1;
+			opacity: 0;
+			transform: translateY(20px);
+			transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+		}
+
+		.step-number.active {
+			opacity: 1;
+			transform: translateY(0);
+		}
+
+		.step-details {
+			opacity: 0;
+			transform: translateY(20px);
+			transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
+		}
+
+		.step-details.active {
+			opacity: 1;
+			transform: translateY(0);
+		}
+
+		.step-title {
+			font-size: 1.75rem;
+			font-weight: 700;
+			margin-bottom: 12px;
+			color: var(--text-primary);
+		}
+
+		.step-description {
+			font-size: 1.125rem;
+			line-height: 1.7;
+			color: var(--text-secondary);
+			max-width: 400px;
+		}
+
+		@media (min-width: 1024px) {
+			.step-description {
+				margin-left: auto;
+			}
+		}
+
+		/* Center - Phone Mockup */
+		.phone-mockup {
+			order: 1;
+			position: relative;
+			width: 100%;
+			max-width: 380px;
+			margin: 0 auto;
+			aspect-ratio: 9 / 19.5;
+			background: #1f1f1f;
+			border-radius: 50px;
+			padding: 12px;
+			box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4),
+				0 0 0 1px rgba(255, 255, 255, 0.1);
+		}
+
+		@media (min-width: 1024px) {
+			.phone-mockup {
+				order: 2;
+				max-width: 420px;
+			}
+		}
+
+		/* Notch */
+		.phone-notch {
+			position: absolute;
+			top: 12px;
+			left: 50%;
+			transform: translateX(-50%);
+			width: 140px;
+			height: 28px;
+			background: #000;
+			border-radius: 0 0 20px 20px;
+			z-index: 10;
+		}
+
+		/* Screen */
+		.phone-screen {
+			width: 100%;
+			height: 100%;
+			background: #fff;
+			border-radius: 42px;
+			overflow: hidden;
+			position: relative;
+		}
+
+		.screen-content {
+			width: 100%;
+			height: 100%;
+			position: relative;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.screen-slide {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			opacity: 0;
+			transform: translateX(100px) scale(0.95);
+			transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+			pointer-events: none;
+		}
+
+		.screen-slide.active {
+			opacity: 1;
+			transform: translateX(0) scale(1);
+			pointer-events: auto;
+		}
+
+		.screen-slide.prev {
+			transform: translateX(-100px) scale(0.95);
+		}
+
+		.screen-slide img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			object-position: top;
+		}
+
+		/* Right Side - Navigation */
+		.navigation {
+			order: 3;
+			display: flex;
+			flex-direction: column;
+			gap: 20px;
+		}
+
+		@media (min-width: 1024px) {
+			.navigation {
+				align-items: flex-start;
+			}
+		}
+
+		.nav-buttons {
+			display: flex;
+			gap: 12px;
+			justify-content: center;
+		}
+
+		@media (min-width: 1024px) {
+			.nav-buttons {
+				flex-direction: column;
+				justify-content: flex-start;
+			}
+		}
+
+		.nav-btn {
+			width: 56px;
+			height: 56px;
+			border-radius: 50%;
+			background: white;
+			border: 2px solid var(--gray-200);
+			cursor: pointer;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+			font-size: 20px;
+			color: var(--text-primary);
+		}
+
+		.nav-btn:hover {
+			background: var(--vpbank-gradient);
+			border-color: var(--vpbank-green);
+			color: white;
+			transform: scale(1.1);
+			box-shadow: 0 8px 16px -4px rgba(0, 177, 79, 0.3);
+		}
+
+		.nav-btn:active {
+			transform: scale(0.95);
+		}
+
+		.nav-btn:disabled {
+			opacity: 0.3;
+			cursor: not-allowed;
+		}
+
+		.nav-btn:disabled:hover {
+			background: white;
+			border-color: var(--gray-200);
+			color: var(--text-primary);
+			transform: scale(1);
+			box-shadow: none;
+		}
+
+		/* Progress Dots */
+		.progress-dots {
+			display: flex;
+			gap: 8px;
+			justify-content: center;
+		}
+
+		@media (min-width: 1024px) {
+			.progress-dots {
+				flex-direction: column;
+			}
+		}
+
+		.dot {
+			width: 12px;
+			height: 12px;
+			border-radius: 50%;
+			background: var(--gray-200);
+			cursor: pointer;
+			transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+			position: relative;
+		}
+
+		.dot.active {
+			background: var(--vpbank-gradient);
+			transform: scale(1.3);
+		}
+
+		.dot:hover {
+			background: var(--vpbank-green-light);
+			transform: scale(1.2);
+		}
+
+		/* Bottom Progress Bar */
+		.progress-bar-container {
+			margin-top: 40px;
+			padding: 0 20px;
+		}
+
+		.progress-bar {
+			height: 4px;
+			background: var(--gray-200);
+			border-radius: 999px;
+			overflow: hidden;
+			position: relative;
+		}
+
+		.progress-fill {
+			height: 100%;
+			background: var(--vpbank-gradient);
+			border-radius: 999px;
+			transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+		}
+
+		.progress-text {
+			text-align: center;
+			margin-top: 12px;
+			font-size: 0.875rem;
+			color: var(--text-secondary);
+			font-weight: 500;
+		}
+
+		/* Keyboard Hint */
+		.keyboard-hint {
+			position: fixed;
+			bottom: 20px;
+			right: 20px;
+			background: rgba(255, 255, 255, 0.9);
+			backdrop-filter: blur(8px);
+			padding: 12px 20px;
+			border-radius: 12px;
+			font-size: 0.75rem;
+			color: var(--text-secondary);
+			box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+			opacity: 0;
+			animation: fadeInDelay 0.5s ease-out 1s forwards;
+		}
+
+		@keyframes fadeInDelay {
+			to {
+				opacity: 1;
+			}
+		}
+
+		.keyboard-hint kbd {
+			background: var(--gray-100);
+			padding: 2px 6px;
+			border-radius: 4px;
+			font-family: monospace;
+			font-size: 0.7rem;
+			margin: 0 2px;
+		}
+
+		@keyframes fadeIn {
+			from {
+				opacity: 0;
+				transform: translateY(-20px);
+			}
+
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+
+		/* Mobile Adjustments */
+		@media (max-width: 1023px) {
+			.phone-mockup {
+				max-width: 320px;
+			}
+
+			.step-number {
+				font-size: 3rem;
+			}
+
+			.step-title {
+				font-size: 1.5rem;
+			}
+
+			.step-description {
+				font-size: 1rem;
+			}
+
+			.keyboard-hint {
+				display: none;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<header>
+			<h1>Hướng Dẫn Chia Sẻ Biến Động Số Dư VPBank</h1>
+			<p class="subtitle">9 bước đơn giản để kết nối tài khoản VPBank với BillGate</p>
+		</header>
+
+		<div class="journey-container">
+			<!-- Left: Step Info -->
+			<div class="step-info">
+				<div class="step-number" id="step-number">1</div>
+				<div class="step-details" id="step-details">
+					<h2 class="step-title" id="step-title">Đăng nhập</h2>
+					<p class="step-description" id="step-description">
+						Mở ứng dụng VPBank Neo và đăng nhập vào tài khoản của bạn để bắt đầu quá trình thiết lập.
+					</p>
+				</div>
+			</div>
+
+			<!-- Center: Phone Mockup -->
+			<div class="phone-mockup">
+				<div class="phone-notch"></div>
+				<div class="phone-screen">
+					<div class="screen-content" id="screen-content">
+						<!-- Screens will be inserted here -->
+					</div>
+				</div>
+			</div>
+
+			<!-- Right: Navigation -->
+			<div class="navigation">
+				<div class="nav-buttons">
+					<button class="nav-btn" id="prev-btn" onclick="changeStep(-1)">←</button>
+					<button class="nav-btn" id="next-btn" onclick="changeStep(1)">→</button>
+				</div>
+				<div class="progress-dots" id="progress-dots">
+					<!-- Dots will be inserted here -->
+				</div>
+			</div>
+		</div>
+
+		<div class="progress-bar-container">
+			<div class="progress-bar">
+				<div class="progress-fill" id="progress-fill"></div>
+			</div>
+			<div class="progress-text" id="progress-text">Bước 1 / 9</div>
+		</div>
+	</div>
+
+	<div class="keyboard-hint">
+		Sử dụng <kbd>←</kbd> <kbd>→</kbd> để điều hướng
+	</div>
+
+	<script>
+		const steps = [
+			{
+				step: 1,
+				title: "Đăng nhập",
+				description: "Mở ứng dụng VPBank Neo và đăng nhập vào tài khoản của bạn để bắt đầu quá trình thiết lập.",
+				image: "/guides/step1-login.jpg"
+			},
+			{
+				step: 2,
+				title: "Mở rộng",
+				description: "Nhấn vào biểu tượng menu hoặc mở rộng để xem các tùy chọn thiết lập.",
+				image: "/guides/step2-expand.jpg"
+			},
+			{
+				step: 3,
+				title: "Thông báo",
+				description: "Vào mục Thông báo trong cài đặt để bắt đầu cấu hình nhận thông báo biến động số dư.",
+				image: "/guides/step3-notification.jpg"
+			},
+			{
+				step: 4,
+				title: "Thiết lập nhận thông báo trên máy để bàn",
+				description: "Chọn tùy chọn thiết lập nhận thông báo trên máy tính để bàn để kích hoạt tính năng này.",
+				image: "/guides/step4-desktop-notification.jpg"
+			},
+			{
+				step: 5,
+				title: "Tạo mã",
+				description: "Nhấn vào nút Tạo mã để hệ thống tạo mã chia sẻ cho tài khoản của bạn.",
+				image: "/guides/step5-create-code.jpg"
+			},
+			{
+				step: 6,
+				title: "Chọn tài khoản và các thông tin cần chia sẻ",
+				description: "Chọn tài khoản muốn nhận thông báo và các thông tin biến động số dư muốn chia sẻ, sau đó nhấn Tạo.",
+				image: "/guides/step6-select-account.jpg"
+			},
+			{
+				step: 7,
+				title: "Nhận mã chia sẻ",
+				description: "Nhấn vào nút Nhận mã chia sẻ để lấy Key Share và mã PIN cần thiết cho việc kết nối.",
+				image: "/guides/step7-get-code.jpg"
+			},
+			{
+				step: 8,
+				title: "Nhập Key Share và PIN vào BillGate",
+				description: "Truy cập vào hệ thống BillGate và nhập Key Share cùng mã PIN vừa nhận được để hoàn tất kết nối.",
+				image: "/guides/step8-enter-credentials.jpg"
+			},
+			{
+				step: 9,
+				title: "Hoàn tất - Bật âm thanh thông báo",
+				description: "Kích hoạt âm thanh biến động số dư bằng giọng nói để nhận thông báo ngay lập tức. Hoàn tất thiết lập!",
+				image: "/guides/step9-complete.jpg"
+			}
+		];
+
+		let currentStep = 0;
+
+		// Initialize
+		function init() {
+			renderScreens();
+			renderDots();
+			updateUI();
+		}
+
+		// Render all screens
+		function renderScreens() {
+			const container = document.getElementById('screen-content');
+			container.innerHTML = steps.map((step, index) => `
+                <div class="screen-slide ${index === 0 ? 'active' : ''}" data-index="${index}">
+                    <img src="${step.image}" alt="${step.title}" loading="lazy">
+                </div>
+            `).join('');
+		}
+
+		// Render progress dots
+		function renderDots() {
+			const container = document.getElementById('progress-dots');
+			container.innerHTML = steps.map((_, index) => `
+                <div class="dot ${index === 0 ? 'active' : ''}" onclick="goToStep(${index})"></div>
+            `).join('');
+		}
+
+		// Change step
+		function changeStep(direction) {
+			const newStep = currentStep + direction;
+			if (newStep < 0 || newStep >= steps.length) return;
+
+			// Mark current as prev if going forward
+			const allSlides = document.querySelectorAll('.screen-slide');
+			if (direction > 0) {
+				allSlides[currentStep].classList.add('prev');
+			} else {
+				allSlides[currentStep].classList.remove('prev');
+			}
+
+			currentStep = newStep;
+			updateUI();
+		}
+
+		// Go to specific step
+		function goToStep(index) {
+			if (index === currentStep) return;
+
+			const allSlides = document.querySelectorAll('.screen-slide');
+			if (index > currentStep) {
+				allSlides[currentStep].classList.add('prev');
+			} else {
+				allSlides[currentStep].classList.remove('prev');
+			}
+
+			currentStep = index;
+			updateUI();
+		}
+
+		// Update UI
+		function updateUI() {
+			const step = steps[currentStep];
+
+			// Update step info with animation
+			const stepNumber = document.getElementById('step-number');
+			const stepDetails = document.getElementById('step-details');
+			const stepTitle = document.getElementById('step-title');
+			const stepDescription = document.getElementById('step-description');
+
+			// Remove active class
+			stepNumber.classList.remove('active');
+			stepDetails.classList.remove('active');
+
+			// Update content
+			setTimeout(() => {
+				stepNumber.textContent = step.step;
+				stepTitle.textContent = step.title;
+				stepDescription.textContent = step.description;
+
+				// Add active class back
+				stepNumber.classList.add('active');
+				stepDetails.classList.add('active');
+			}, 150);
+
+			// Update screens
+			const allSlides = document.querySelectorAll('.screen-slide');
+			allSlides.forEach((slide, index) => {
+				if (index === currentStep) {
+					slide.classList.add('active');
+					slide.classList.remove('prev');
+				} else {
+					slide.classList.remove('active');
+					if (index < currentStep) {
+						slide.classList.add('prev');
+					} else {
+						slide.classList.remove('prev');
+					}
+				}
+			});
+
+			// Update dots
+			const allDots = document.querySelectorAll('.dot');
+			allDots.forEach((dot, index) => {
+				if (index === currentStep) {
+					dot.classList.add('active');
+				} else {
+					dot.classList.remove('active');
+				}
+			});
+
+			// Update progress bar
+			const progress = ((currentStep + 1) / steps.length) * 100;
+			document.getElementById('progress-fill').style.width = `${progress}%`;
+			document.getElementById('progress-text').textContent = `Bước ${currentStep + 1} / ${steps.length}`;
+
+			// Update buttons
+			document.getElementById('prev-btn').disabled = currentStep === 0;
+			document.getElementById('next-btn').disabled = currentStep === steps.length - 1;
+		}
+
+		// Keyboard navigation
+		document.addEventListener('keydown', (e) => {
+			if (e.key === 'ArrowLeft') {
+				changeStep(-1);
+			} else if (e.key === 'ArrowRight') {
+				changeStep(1);
+			}
+		});
+
+		// Initialize on load
+		document.addEventListener('DOMContentLoaded', init);
+	</script>
+</body>
+
+</html>
