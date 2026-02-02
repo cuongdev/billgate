@@ -69,7 +69,7 @@ export const HomePage: React.FC = () => {
 								<span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
 								<span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
 							</span>
-							Mở tài khoản VPBank
+							Mở tài khoản Ngân hàng
 						</a>
 						<a
 							href="https://github.com/cuongdev/billgate"
@@ -140,15 +140,15 @@ export const HomePage: React.FC = () => {
 									<span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
 									<span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
 								</span>
-								<span className="text-xs font-bold text-green-700 tracking-wide uppercase">Official Banking API</span>
+								<span className="text-xs font-bold text-green-700 tracking-wide uppercase">Realtime Payment Monitor</span>
 							</div>
 
 							<h1 className="text-5xl sm:text-6xl font-extrabold text-gray-900 leading-[1.15] tracking-tight">
-								Cổng thanh toán <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-emerald-500">Chính thống</span> dành cho Chủ cửa hàng.
+								Cổng thanh toán <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-emerald-500">tự động</span> dành cho Chủ cửa hàng.
 							</h1>
 
 							<p className="text-lg text-gray-600 leading-relaxed max-w-xl">
-								Nhận biến động số dư tức thì, bảo mật tuyệt đối và không qua trung gian.
+								Nhận biến động số dư tức thì
 							</p>
 
 							<div className="flex flex-col sm:flex-row gap-4">
@@ -177,7 +177,7 @@ export const HomePage: React.FC = () => {
 							<div className="pt-6 flex items-center gap-8 text-gray-400">
 								<div className="flex items-center gap-2">
 									<CheckCircle2 className="w-5 h-5 text-green-600" />
-									<span className="text-sm font-medium">Đối tác chính thức</span>
+									<span className="text-sm font-medium">Tập trung vào độ ổn định</span>
 								</div>
 								<div className="flex items-center gap-2">
 									<CheckCircle2 className="w-5 h-5 text-green-600" />
@@ -198,7 +198,7 @@ export const HomePage: React.FC = () => {
 										</div>
 										<div>
 											<h3 className="font-bold text-gray-900">Tài khoản cửa hàng</h3>
-											<p className="text-sm text-gray-500">Official API</p>
+											<p className="text-sm text-gray-500">Theo dõi giao dịch realtime</p>
 										</div>
 									</div>
 									<div className="text-right">
@@ -245,15 +245,15 @@ export const HomePage: React.FC = () => {
 					<div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-gray-100">
 						<div>
 							<p className="text-4xl font-extrabold text-gray-900 mb-2">100%</p>
-							<p className="text-sm font-medium text-gray-500 uppercase tracking-wide">Official API</p>
+							<p className="text-sm font-medium text-gray-500 uppercase tracking-wide">Tự động hóa</p>
 						</div>
 						<div>
 							<p className="text-4xl font-extrabold text-gray-900 mb-2">0s</p>
 							<p className="text-sm font-medium text-gray-500 uppercase tracking-wide">Độ trễ (Real-time)</p>
 						</div>
 						<div>
-							<p className="text-4xl font-extrabold text-gray-900 mb-2">PCI DSS</p>
-							<p className="text-sm font-medium text-gray-500 uppercase tracking-wide">Chuẩn bảo mật</p>
+							<p className="text-4xl font-extrabold text-gray-900 mb-2">3+</p>
+							<p className="text-sm font-medium text-gray-500 uppercase tracking-wide">Kênh thông báo</p>
 						</div>
 						<div>
 							<p className="text-4xl font-extrabold text-gray-900 mb-2">24/7</p>
@@ -268,8 +268,8 @@ export const HomePage: React.FC = () => {
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 					<div className="text-center max-w-3xl mx-auto mb-16">
 						<span className="text-green-600 font-bold tracking-wide uppercase text-sm">Tính năng nổi bật</span>
-						<h2 className="mt-3 text-4xl font-extrabold text-gray-900 sm:text-5xl">Nền tảng ngân hàng mở</h2>
-						<p className="mt-4 text-xl text-gray-500">Kết nối trực tiếp vào hệ sinh thái Open Banking</p>
+						<h2 className="mt-3 text-4xl font-extrabold text-gray-900 sm:text-5xl">Nền tảng tự động hóa dòng tiền</h2>
+						<p className="mt-4 text-xl text-gray-500">Kết nối linh hoạt với hệ thống, webhook và quy trình của bạn.</p>
 					</div>
 
 					<div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -278,9 +278,9 @@ export const HomePage: React.FC = () => {
 							<div className="w-14 h-14 bg-green-100 rounded-2xl flex items-center justify-center text-green-600 mb-6">
 								<Building2 className="w-7 h-7" />
 							</div>
-							<h3 className="text-2xl font-bold text-gray-900 mb-4">Official Features</h3>
+							<h3 className="text-2xl font-bold text-gray-900 mb-4">Workflow thông minh</h3>
 							<p className="text-gray-500 leading-relaxed mb-6">
-								Sử dụng API chính thức từ ngân hàng. Không cần giả lập, không lo bị chặn, không rủi ro bảo mật tài khoản.
+								Tự động đọc và xử lý biến động số dư từ tài khoản của bạn thông qua các kênh hỗ trợ, giảm thao tác thủ công và rủi ro vận hành.
 							</p>
 							<span className="text-green-600 font-semibold flex items-center gap-1">
 								<CheckCircle2 className="w-4 h-4" /> Đã xác thực
@@ -294,7 +294,7 @@ export const HomePage: React.FC = () => {
 							</div>
 							<h3 className="text-2xl font-bold text-gray-900 mb-4">Instant Webhooks</h3>
 							<p className="text-gray-500 leading-relaxed mb-6">
-								Nhận thông báo biến động số dư ngay lập tức từ Core Banking. Độ trễ gần như bằng 0.
+								Nhận thông báo biến động số dư ngay lập tức.
 							</p>
 							<a href="#" className="text-blue-600 font-semibold flex items-center gap-1 hover:gap-2 transition-all">
 								Xem tài liệu API <ArrowRight className="w-4 h-4" />
@@ -318,7 +318,7 @@ export const HomePage: React.FC = () => {
 				</div>
 			</section >
 
-			{/* VPBank Referral Section */}
+			{/* Referral Section */}
 			< section id="referral" className="py-20 relative overflow-hidden bg-gray-900 text-white" >
 				{/* Modern Gradient Background */}
 				< div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 z-0" ></div >
@@ -333,13 +333,13 @@ export const HomePage: React.FC = () => {
 								<span className="text-xs font-bold text-amber-300 uppercase tracking-wider">Ưu đãi độc quyền</span>
 							</div>
 							<h2 className="text-4xl md:text-5xl font-extrabold mb-6 leading-tight">
-								Mở tài khoản VPBank ngay
+								Mở tài khoản Ngân hàng ngay
 								<span className="block mt-2 text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-emerald-400 to-teal-300">
 									Nhận ngay ưu đãi
 								</span>
 							</h2>
 							<p className="text-lg text-gray-300 mb-8 max-w-xl leading-relaxed">
-								Sử dụng tính năng Automation Bank Connector ngay khi mở tài khoản VPBank. Miễn phí duy trì, chuyển khoản 24/7.
+								Sử dụng tính năng Automation ngay khi mở tài khoản Ngân hàng. Miễn phí duy trì, chuyển khoản 24/7.
 							</p>
 							<div className="flex flex-col sm:flex-row gap-5 items-start sm:items-center">
 								<a
@@ -357,9 +357,9 @@ export const HomePage: React.FC = () => {
 									target="_blank"
 									rel="noopener noreferrer"
 									className="flex flex-col items-center gap-2 p-3 bg-white/10 rounded-xl border border-white/20 hover:bg-white/15 transition-colors"
-									title="Quét mã để mở tài khoản VPBank"
+									title="Quét mã để mở tài khoản Ngân hàng"
 								>
-									<img src={VPBANK_QR_IMAGE} alt="QR mở tài khoản VPBank" className="w-[120px] h-[120px] rounded-lg bg-white" />
+									<img src={VPBANK_QR_IMAGE} alt="QR mở tài khoản Ngân hàng" className="w-[120px] h-[120px] rounded-lg bg-white" />
 									<span className="text-xs text-gray-400">Quét mã mở tài khoản</span>
 								</a>
 								<div className="flex items-center gap-4 text-gray-400 px-4">
@@ -377,7 +377,7 @@ export const HomePage: React.FC = () => {
 								<div className="absolute inset-0 bg-gradient-to-br from-green-500/10 to-blue-500/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
 								<div className="flex justify-between items-start mb-8 relative z-10">
 									<div className="w-16 h-10 bg-green-600 rounded-lg flex items-center justify-center shadow-lg shadow-green-900/50">
-										<span className="font-bold text-white tracking-tighter">VPBank</span>
+										<span className="font-bold text-white tracking-tighter">Ngân hàng</span>
 									</div>
 									<div className="text-right">
 										<p className="text-[10px] text-gray-400 uppercase tracking-widest font-semibold">Tài khoản</p>
@@ -411,7 +411,7 @@ export const HomePage: React.FC = () => {
 							<span className="text-green-600 font-bold tracking-wide uppercase text-sm">Bảo mật cấp ngân hàng</span>
 							<h2 className="mt-3 text-4xl font-extrabold text-gray-900 sm:text-5xl mb-6">An toàn tuyệt đối</h2>
 							<p className="text-lg text-gray-600 mb-8 leading-relaxed">
-								Kết nối trực tiếp với cổng API, tuân thủ các tiêu chuẩn bảo mật khắt khe nhất.
+								Tập trung vào giám sát giao dịch và gửi thông báo một cách ổn định, giúp đội vận hành giảm thao tác thủ công.
 							</p>
 
 							<div className="space-y-6">
@@ -433,8 +433,8 @@ export const HomePage: React.FC = () => {
 										</div>
 									</div>
 									<div>
-										<h4 className="text-xl font-bold text-gray-900">VPBank Features</h4>
-										<p className="text-gray-500 mt-1">Tính năng chia sẽ biến động số dư đến từ VPBank Neo</p>
+										<h4 className="text-xl font-bold text-gray-900">Features</h4>
+										<p className="text-gray-500 mt-1">Tính năng chia sẽ biến động số dư realtime</p>
 									</div>
 								</div>
 							</div>
@@ -452,7 +452,7 @@ export const HomePage: React.FC = () => {
 										<CheckCircle2 className="w-8 h-8 text-green-500" />
 										<div>
 											<p className="font-bold text-gray-900">API Security</p>
-											<p className="text-xs text-gray-500">Official Features</p>
+											<p className="text-xs text-gray-500">Security by Design</p>
 										</div>
 									</div>
 								</div>
@@ -471,10 +471,10 @@ export const HomePage: React.FC = () => {
 								<div className="w-8 h-8 bg-gradient-to-br from-green-600 to-emerald-700 rounded-lg flex items-center justify-center text-white">
 									<span className="font-bold">VP</span>
 								</div>
-								<span className="font-bold text-xl tracking-wide">Bank Connector</span>
+								<span className="font-bold text-xl tracking-wide">BillGate</span>
 							</div>
 							<p className="text-gray-400 leading-relaxed max-w-sm">
-								Cung cấp giải pháp API ngân hàng chính thống. Kết nối trực tiếp, an toàn và ổn định cho doanh nghiệp số.
+								Giải pháp tự động hóa thông báo giao dịch ngân hàng cho doanh nghiệp số.
 							</p>
 						</div>
 						<div>
@@ -488,7 +488,7 @@ export const HomePage: React.FC = () => {
 						<div>
 							<h4 className="text-lg font-bold mb-6">Hỗ trợ</h4>
 							<ul className="space-y-4 text-gray-400">
-								<li><a href="#" className="hover:text-white transition-colors">VPBank Support</a></li>
+								<li><a href="#" className="hover:text-white transition-colors">Support</a></li>
 								<li><a href="#" className="hover:text-white transition-colors">Liên hệ Sales</a></li>
 							</ul>
 						</div>
